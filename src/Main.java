@@ -1,9 +1,16 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        affichage("Sitraka");
-    }
+        int cpt = 0;
+        int[] nombre = {10, 20, 0, 40, 0, 60, 0};
+        for (int num : nombre) {
+            if (num == 0) {
+                cpt++;
+            }
+        }
 
-    public static void affichage(final String name) {
-        System.out.println("Bonjour " + name);
+        System.out.println(cpt);
     }
 }
