@@ -3,14 +3,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int cpt = 0;
-        int[] nombre = {10, 20, 0, 40, 0, 60, 0};
-        for (int num : nombre) {
-            if (num == 0) {
-                cpt++;
-            }
-        }
-
-        System.out.println(cpt);
+        Mur mur = new Mur(13, 15, 45, true);
+        System.out.println(mur.couleur);
+        Bloc porte = new Porte(13, 15, 45, true);
+        System.out.println(porte.couleur);
+        porte.setCouleur(Couleur.MARRON);
+        System.out.println(porte.couleur);
     }
 }

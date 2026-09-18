@@ -2,6 +2,7 @@ public abstract class Bloc {
     protected int longueur;
     protected int largeur;
     protected int hauteur;
+    protected Couleur couleur;
 
     public Bloc(final int longueur, final int largeur, final int hauteur) {
         this.longueur = longueur;
@@ -21,15 +22,7 @@ public abstract class Bloc {
         return hauteur;
     }
 
-    public void setLongueur(final int longeur) {
-        this.longueur = longeur;
-    }
-
-    public void setLargeur(final int largeur) {
-        this.largeur = largeur;
-    }
-
-    public void setHauteur(final int hauteur) {
-        this.hauteur = hauteur;
+    public void setCouleur(final Couleur couleur) {
+        this.couleur = couleur;
     }
 }
