@@ -1,4 +1,4 @@
-public abstract class Bloc {
+public abstract class Bloc implements IBloc{
     protected int longueur;
     protected int largeur;
     protected int hauteur;
