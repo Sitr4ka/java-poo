@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.Set;
 
 public class Kit {
-    private Set<Bloc> blocs = new LinkedHashSet<>();
-    private Set<String> motsCles = new LinkedHashSet<>();
+    private Set<IBloc> blocs = new LinkedHashSet<>();
+    private Set<String> motsCles;
 
     public Kit() {
-        blocs.add(new Mur(3,2,2, true));
-        blocs.add(new Mur(3,2,2, true));
-        blocs.add(new Mur(3,2,2, false ));
-        blocs.add(new Mur(3,2,2, false ));
-        blocs.add(new Porte(3,2,2, true));
+        try {
+            blocs.add(new Mur(3, 2, 2, true));
+            blocs.add(new Mur(3, 2, 2, true));
+            blocs.add(new Mur(3, 2, 2, false));
+            blocs.add(new Mur(3, 2, 2, false));
+            blocs.add(new Porte(3, 2, 2, true));
+        } catch (IllegalBlocException e) {
 
-        motsCles.add("Cabane");
-        motsCles.add("Muraile");
+        }
     }
 
     public void afficherKit() {
@@ -26,5 +27,11 @@ public class Kit {
         }
     }
 
+    public Set<String> getMotsCles() {
+        return motsCles;
+    }
 
+    public Set<IBloc> getBlocs() {
+        return blocs;
+    }
 }
