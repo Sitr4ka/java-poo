@@ -1,13 +1,21 @@
+import java.awt.print.PrinterAbortException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Mur mur = new Mur(13, 15, 45, true);
-        System.out.println(mur.couleur);
-        Bloc porte = new Porte(13, 15, 45, true);
-        System.out.println(porte.couleur);
-        porte.setCouleur(Couleur.MARRON);
-        System.out.println(porte.couleur);
+        try {
+            Porte bloc = new Porte(1, 1, 1, false);
+            bloc.afficherDescription();
+            bloc.verrouiller();
+        } catch (IllegalBlocException e) {
+            System.out.println("Valeur pour construire le bloc invalide");
+        } catch (PorteVerouilleException exception) {
+            System.out.println("La porte est déjà vérrouillée.");
+        }
+
+
     }
 }
