@@ -1,6 +1,10 @@
-import java.util.ArrayList;
+package ej;
+
+import ej.blocs.IBloc;
+import ej.blocs.Mur;
+import ej.blocs.Porte;
+
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Kit {

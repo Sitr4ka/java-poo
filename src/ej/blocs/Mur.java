@@ -1,3 +1,7 @@
+package ej.blocs;
+
+import ej.IllegalBlocException;
+
 public class Mur extends Bloc{
     private boolean porteur;
     private boolean traversable;
