@@ -22,12 +22,18 @@ public class Main {
         try {
             // Le programme commence avec un Kit de démarrage.
             KitDemarrage kit = new KitDemarrage(constructionSetBlocs());
+            kit.charger();
             System.out.println("Vous possédez un kit de démarrage !");
 
             // Sélection du menu à afficher
-            System.out.println("Que souhaitez-vous afficher ?\n\t1 - Les idées de constructions. \n\t2 - Le nombre de blocs pour chaque type de blocs présent dans le kit");
+            System.out.println(
+                    "Que souhaitez-vous afficher ?" +
+                    "\n\t1 - Les idées de constructions. " +
+                    "\n\t2 - Le nombre de blocs pour chaque type de blocs présent dans le kit");
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String reponse = reader.readLine();
+
             if (reponse.equals("1")) {
                 // Il affiche les mots clés associés au Kit pour donner des idées à l'utilisateur.
                 System.out.println("Voici quelques idées de constructions avec le Kit de démarrage : ");
@@ -44,7 +50,6 @@ public class Main {
                     int quantite = quantiteBloc.getOrDefault(type, 0) + 1; // Quantite existante + 1.
                     quantiteBloc.put(type, quantite);
                 }
-
                 Set<Type> types = quantiteBloc.keySet();
                 for (Type type : types) {
                     System.out.println(type.toString() + " " + quantiteBloc.get(type));
