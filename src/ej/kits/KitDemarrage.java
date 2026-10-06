@@ -33,17 +33,13 @@ public class KitDemarrage {
     public void afficherKit() {
         System.out.println("Nombre de blocs dans le kit : " + blocs.size());
         System.out.print("Liste des mots clés du kit : ");
-        for (String motCle : motsCles) {
-            System.out.print(motCle + " ");
-        }
+        motsCles.forEach(System.out::println);
     }
 
     public void sauvegarder() {
         StringBuilder builder = new StringBuilder();
         builder.append("Kit de démarrage: \n");
-        for (String motcle : motsCles) {
-            builder.append(motcle).append(" ");
-        }
+        motsCles.forEach((motsCle) -> builder.append(motsCle).append(" "));
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("kit.txt"));

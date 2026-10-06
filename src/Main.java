@@ -38,9 +38,7 @@ public class Main {
                 // Il affiche les mots clés associés au Kit pour donner des idées à l'utilisateur.
                 System.out.println("Voici quelques idées de constructions avec le Kit de démarrage : ");
                 Set<String> motsCles = kit.getMotsCles();
-                for (String mot : motsCles) {
-                    System.out.println(mot);
-                }
+                motsCles.forEach(System.out::println);
             } else if (reponse.equals("2")) {
                 // Il affiche à l'utilisateur le nombre de blocs en fonction du type à contenu par le Kit.
                 System.out.println("Voici le nombre de blocs de chaque type contenu dans le Kit de démarrage : ");
@@ -51,9 +49,7 @@ public class Main {
                     quantiteBloc.put(type, quantite);
                 }
                 Set<Type> types = quantiteBloc.keySet();
-                for (Type type : types) {
-                    System.out.println(type.toString() + " " + quantiteBloc.get(type));
-                }
+                types.forEach((type) -> System.out.println(type.toString() + " " + quantiteBloc.get(type)));
             } else {
                 System.out.println("La valeur saisie n'est pas valide - tapez 1 ou 2.");
             }
