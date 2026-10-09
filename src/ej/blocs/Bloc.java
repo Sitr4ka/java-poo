@@ -24,7 +24,15 @@ public abstract class Bloc implements IBloc{
         this.hauteur = hauteur;
         this.couleur = couleur;
 
-        logger.info("Un bloc de type {} a été construit.", this.getClass().getSimpleName());
+        /* Bloc de code pour simuler un problème de performance. */
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            logger.error("Problème lors de la construction du bloc");
+        }
+        /* Fin du bloc de code pour simuler un problème de performance. */
+
+        logger.debug("Un bloc de type {} a été construit.", this.getClass().getSimpleName());
     }
 
     public int getLongueur() {

@@ -1,16 +1,21 @@
 package ej.kits;
 
-import ej.blocs.IBloc;
-import ej.exceptions.IllegalBlocException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ej.blocs.IBloc;
+import ej.exceptions.IllegalBlocException;
+
 public class KitDemarrage {
+
     private Logger logger = LogManager.getLogger(KitDemarrage.class);
+
     private Set<IBloc> blocs = new LinkedHashSet<IBloc>();
     private Set<String> motsCles = new LinkedHashSet<String>();
 
@@ -48,19 +53,6 @@ public class KitDemarrage {
             logger.info("Fichier kit.txt mis à jour.");
         } catch (IOException e) {
             logger.error("Impossible d'écrire dans le fichier.");
-        }
-    }
-
-    public void charger() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("kit.txt"))){
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (FileNotFoundException e) {
-            logger.error("Le fichier kit.txt n'existe pas.");
-        } catch (IOException e) {
-            logger.error("Impossible de lire le fichier kit.txt");
         }
     }
 
