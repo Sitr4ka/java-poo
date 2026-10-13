@@ -3,10 +3,8 @@ package ej;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.concurrent.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +44,7 @@ public class Main {
                 System.out.println("Voici quelques idées de constructions avec le Kit de démarrage : ");
                 Set<String> motsCles = kit.getMotsCles();
                 motsCles.forEach(System.out::println);
-            } else if(reponse.equals("2")) {
+            } else if (reponse.equals("2")) {
                 // Il affiche à l'utilisateur le nombre de blocs en fonction du type à contenu par le Kit.
                 System.out.println("Voici le nombre de blocs de chaque type contenu dans le Kit de démarrage : ");
                 Map<Type, Integer> quantiteBloc = new TreeMap<Type, Integer>(); // La TreeMap permet de trier les entrées par ordre alphabétique de la clé.
@@ -75,21 +73,32 @@ public class Main {
     private static Set<IBloc> constructionSetBlocs() throws IllegalBlocException {
         Set<IBloc> blocs = new LinkedHashSet<IBloc>();
 
-        // Le kit contient 4 blocs Mur.
-        blocs.add(new Mur(3, 2, 2, true));
-        blocs.add(new Mur(3, 2, 2, true));
-        blocs.add(new Mur(2, 1, 2, false));
-        blocs.add(new Mur(2, 1, 2, false));
+        ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
+        List<Callable<IBloc>> tasks = new ArrayList<>();
 
-        // Le kit contient 1 bloc Porte.
-        blocs.add(new Porte(1, 2, 2, true));
+        for (int i = 0; i < 10000; i++) {
+            Callable<IBloc> taskMur1 = () -> {
+                return new Mur(3, 2, 2, true);
+            };
 
-        // Le kit contient 4 blocs Toit.
-        blocs.add(new Toit(3, 1, 1));
-        blocs.add(new Toit(3, 1, 1));
-        blocs.add(new Toit(3, 1, 1));
-        blocs.add(new Toit(3, 1, 1));
+            tasks.add(taskMur1);
+        }
 
+        try {
+            List<Future<IBloc>> resultats = executorService.invokeAll(tasks);
+            resultats.forEach((resutat) -> {
+                try {
+                    blocs.add(resutat.get());
+                } catch (InterruptedException | ExecutionException e) {
+                    logger.error("Erreur lors de création parallèle des blocs.");
+                }
+            });
+
+        } catch (InterruptedException e) {
+            logger.error("Erreur lors de création parallèle des blocs.");
+        }
+
+        executorService.shutdown();
         return blocs;
     }
 
