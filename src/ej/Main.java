@@ -6,14 +6,10 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.*;
 
+import ej.blocs.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ej.blocs.IBloc;
-import ej.blocs.Mur;
-import ej.blocs.Porte;
-import ej.blocs.Toit;
-import ej.blocs.Type;
 import ej.exceptions.IllegalBlocException;
 import ej.kits.KitDemarrage;
 
@@ -72,33 +68,20 @@ public class Main {
 
     private static Set<IBloc> constructionSetBlocs() throws IllegalBlocException {
         Set<IBloc> blocs = new LinkedHashSet<IBloc>();
+        List<IBloc> portes = Fabrique.creerPorte(1);
+        List<IBloc> murs = Fabrique.creerMur(4);
+        List<IBloc> toits = Fabrique.creerToit(4);
 
-        ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
-        List<Callable<IBloc>> tasks = new ArrayList<>();
+        portes.forEach((porte) -> {
+            blocs.add(porte);
+        });
+        murs.forEach((mur) -> {
+            blocs.add(mur);
+        });
+        toits.forEach((toit) -> {
+            blocs.add(toit);
+        });
 
-        for (int i = 0; i < 10000; i++) {
-            Callable<IBloc> taskMur1 = () -> {
-                return new Mur(3, 2, 2, true);
-            };
-
-            tasks.add(taskMur1);
-        }
-
-        try {
-            List<Future<IBloc>> resultats = executorService.invokeAll(tasks);
-            resultats.forEach((resutat) -> {
-                try {
-                    blocs.add(resutat.get());
-                } catch (InterruptedException | ExecutionException e) {
-                    logger.error("Erreur lors de création parallèle des blocs.");
-                }
-            });
-
-        } catch (InterruptedException e) {
-            logger.error("Erreur lors de création parallèle des blocs.");
-        }
-
-        executorService.shutdown();
         return blocs;
     }
 
